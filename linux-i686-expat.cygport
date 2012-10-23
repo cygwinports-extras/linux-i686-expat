@@ -1,0 +1,27 @@
+CROSS_HOST="i686-pc-linux-gnu"
+inherit cross
+
+NAME="linux-i686-expat"
+VERSION=2.1.0
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Expat library for Linux i686 toolchain"
+
+HOMEPAGE="http://expat.sourceforge.net/"
+SRC_URI="mirror://sourceforge/expat/expat-${VERSION}.tar.gz"
+SRC_DIR="expat-${VERSION}"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	cygconf
+	cygmake buildlib
+}
+
+src_install() {
+	cd ${B}
+	cygmake installlib DESTDIR=${D}
+}
+
+KEEP_LA_FILES="none"
